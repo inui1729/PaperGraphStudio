@@ -275,7 +275,7 @@ def main_app():
         if st.button("ログアウト"): 
             st.session_state.logged_in = False; st.session_state.is_guest = False; st.rerun()
 
-    st.title("📈 PaperGraph v3.1")
+    st.title("📈 PaperGraph Studio")
     if st.session_state.is_guest: st.info("👀 ゲストモード中: 設定の保存機能などは制限されています。")
 
     uploaded_files = st.file_uploader("CSVをドロップ (複数可)", type="csv", accept_multiple_files=True)
