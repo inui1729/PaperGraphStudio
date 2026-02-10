@@ -265,7 +265,9 @@ def create_figure(line_configs, config_dict):
     return fig
 
 # --- メインアプリ ---
+# --- メインアプリ ---
 def main_app():
+    # 1. まずログイン情報などのヘッダーを表示（ここは共通）
     c1, c2 = st.columns([8, 2])
     with c2:
         badge = "orange" if st.session_state.user_plan == "Pro" else "gray"
@@ -276,6 +278,61 @@ def main_app():
             st.session_state.logged_in = False; st.session_state.is_guest = False; st.rerun()
 
     st.title("📈 PaperGraph Studio")
+    if st.session_state.is_guest: st.info("👀 ゲストモード中: 設定の保存機能などは制限されています。")
+
+    # ★★★ ここからが変更点！タブを作る ★★★
+    tab_graph, tab_manual = st.tabs(["📊 グラフ作成", "📖 使い方ガイド"])
+
+    # --- タブ1：今までの機能 ---
+    with tab_graph:
+        # 今までのコードを全部この中に入れます（インデントを下げる）
+        uploaded_files = st.file_uploader("CSVをドロップ (複数可)", type="csv", accept_multiple_files=True)
+
+        if uploaded_files:
+            try:
+                # ... (中略：既存のグラフ作成ロジックはずっとこのまま) ...
+                # ... 最後の zipダウンロードの行まで ...
+                pass # (※ここは実際のコードでは不要です)
+            except Exception as e: st.error(f"Error: {e}")
+        else: st.info("CSVファイルをドロップしてください。")
+
+    # --- タブ2：新しく作るマニュアル ---
+    with tab_manual:
+        st.markdown("""
+        ### 🚀 クイックスタートガイド
+        
+        **Step 1: データの準備**
+        CSVファイルを用意します。
+        * **1列目**: X軸のデータ（時間 $t$ など）
+        * **2列目以降**: Y軸のデータ（電圧 $V$、電流 $I$ など）
+        
+        **Step 2: ファイルのアップロード**
+        「グラフ作成」タブにある点線の枠内に、CSVファイルをドラッグ＆ドロップします。複数ファイルの同時読み込みも可能です。
+
+        **Step 3: グラフの調整**
+        サイドバー（左側のメニュー）を使って見た目を整えます。
+        * **🎨 グラフ構築**: 表示したいデータにチェックを入れます。
+        * **🖼️ 原点・スケール**: 図のサイズや、ログスケール（対数グラフ）の設定ができます。
+        * **📍 ラベル**: 軸の名前や単位を入力します。`$t$ [s]` のように書くと数式フォントになります。
+        
+        **Step 4: 保存**
+        * **💾 画像保存**: PNG, PDF, SVG形式でダウンロードできます。
+        * **☁️ 設定保存 (Pro)**: よく使うグラフの設定（軸の名前や線の色など）をクラウドに保存し、次回ワンクリックで呼び出せます。
+
+        ---
+        ### 💡 論文・レポート用のテクニック
+        
+        * **フォントについて**: 自動的に論文標準の **Times New Roman** が適用されます。
+        * **数式の入力**: ラベル名に `$` 記号を使うことで、$LaTeX$ 形式の美しい数式が表示されます。
+            * 例: `$\alpha$` → $\alpha$, `$\sqrt{x}$` → $\sqrt{x}$
+        * **原点の一本化**: 「原点一本化」にチェックを入れると、グラフの左下と軸の0を綺麗に揃えることができます。
+
+        ---
+        ### 🔒 Proプランの機能
+        * **高解像度出力**: 300dpi以上の高画質で保存可能（印刷用）。
+        * **クラウド保存**: 自分の設定を無制限に保存。
+        * **バッチ出力**: 複数のCSVファイルを一括で画像変換。
+        """)
     if st.session_state.is_guest: st.info("👀 ゲストモード中: 設定の保存機能などは制限されています。")
 
     uploaded_files = st.file_uploader("CSVをドロップ (複数可)", type="csv", accept_multiple_files=True)
