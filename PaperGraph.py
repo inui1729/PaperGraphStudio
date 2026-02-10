@@ -140,7 +140,7 @@ def load_config_cloud(email, name):
 
 # --- ログイン画面 ---
 def show_login_page():
-    st.header("🔑 PaperGraph Studio ログイン")
+    st.header("🔑 ログイン")
     if st.button("🚀 登録せずにゲストとして利用する", type="secondary", use_container_width=True):
         st.session_state.logged_in = True
         st.session_state.is_guest = True
