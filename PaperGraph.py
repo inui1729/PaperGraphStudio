@@ -40,7 +40,7 @@ if not firebase_admin._apps:
 # --- 1. 定数・設定 ---
 PT_TO_MM = 0.3528
 MM_TO_INCH = 1 / 25.4
-st.set_page_config(page_title="PaperGraph", page_icon="📈", layout="wide")
+st.set_page_config(page_title="PaperGraph Studio", page_icon="📈", layout="wide")
 
 st.markdown("""
 <style>
@@ -140,7 +140,7 @@ def load_config_cloud(email, name):
 
 # --- ログイン画面 ---
 def show_login_page():
-    st.header("🔑 PaperGraph ログイン")
+    st.header("🔑 PaperGraph Studio ログイン")
     if st.button("🚀 登録せずにゲストとして利用する", type="secondary", use_container_width=True):
         st.session_state.logged_in = True
         st.session_state.is_guest = True
