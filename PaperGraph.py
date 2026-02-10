@@ -183,9 +183,12 @@ def create_figure(line_configs, config_dict):
     ax2 = ax.twinx() if use_dual else None
     
     # 論文用フォント設定
+    # ★ フォント設定 (サーバーならLiberation Serif, ローカルならTimesを優先)
     plt.rcParams.update({
-        "font.family": "serif", "font.serif": ["Times New Roman"],
-        "mathtext.fontset": "stix", "xtick.direction": "in", "ytick.direction": "in",
+        "font.family": "serif", 
+        "font.serif": ["Times New Roman", "Liberation Serif", "serif"], # 👈 ここが変わりました！
+        "mathtext.fontset": "stix", 
+        "xtick.direction": "in", "ytick.direction": "in",
         "axes.linewidth": config_dict.get("axis_width", 0.71)
     })
 
