@@ -1,0 +1,7 @@
+streamlit
+pandas
+matplotlib
+numpy
+firebase-admin
+stripe
+scipy
